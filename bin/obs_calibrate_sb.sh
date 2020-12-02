@@ -1,7 +1,7 @@
 #!/bin/bash
 usage()
 {
-echo "calibrate.sh [-o obsnum] [-m model] [-d wget link] [-a account] [-m machine]
+echo "calibrate_sb.sh [-o obsnum] [-m model] [-d wget link] [-a account] [-m machine]
 	-o obsnum	: observation id
 	-d wget link	: the wget link for the obs
 	-m model	: the calibrator model
@@ -50,11 +50,11 @@ fi
 
 base=/astro/mwasci/sprabu/satellites/MWA-calibration/
 
-script="${base}queue/calibrate_${obsnum}.sh"
-cat ${base}bin/calibrate.sh | sed -e "s:OBSNUM:${obsnum}:g" \
+script="${base}queue/calibrate_sb_${obsnum}.sh"
+cat ${base}bin/calibrate_sb.sh | sed -e "s:OBSNUM:${obsnum}:g" \
                                 -e "s:BASE:${base}:g" > ${script}
-output="${base}queue/logs/calibrate_${obsnum}.o%A"
-error="${base}queue/logs/calibrate_${obsnum}.e%A"
+output="${base}queue/logs/calibrate_sb_${obsnum}.o%A"
+error="${base}queue/logs/calibrate_sb_${obsnum}.e%A"
 sub="sbatch --begin=now+15 --output=${output} --error=${error} -M ${machine} -A ${account} ${script} -m ${model} -l ${link}" 
 jobid=($(${sub}))
 jobid=${jobid[3]}

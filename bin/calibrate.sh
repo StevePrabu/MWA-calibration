@@ -50,8 +50,9 @@ unzip -n ${obsnum}_ms.zip
 cp /home/sprabu/customPython/getFlaggedTiles.py .
 flagged=$(myPython ./getFlaggedTiles.py --metafits ${obsnum}.metafits)
 
+
 if [[ ! -z ${flagged} ]]; then
-    echo ${flagged} | xargs flagantennae ${obsnum}.ms
+    flagantennae ${obsnum}.ms ${flagged}
 fi
 
 ## run aoflagger
